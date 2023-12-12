@@ -9,7 +9,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        filename: 'bundle.js',
+        filename: 'index.js',
     },
     target: 'node',
     plugins: [new NodePolyfillPlugin()],
