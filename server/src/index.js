@@ -10,7 +10,7 @@ export const PORT = process.env.PORT || 5001;
 export const app = express();
 app.use(cors());
 app.use(express.json());
-const { app: appWS, getWss, applyTo } = expressWs(app);
+const { getWss, applyTo } = expressWs(app);
 
 app.ws('/', (ws, req) => {
     ws.on('message', message => {

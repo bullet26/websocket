@@ -1,4 +1,4 @@
-import { app, PORT } from './index.js';
+import { app, PORT } from './src/index.js';
 
 const start = async () => {
     try {
