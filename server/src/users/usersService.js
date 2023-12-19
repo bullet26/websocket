@@ -77,6 +77,7 @@ const refresh = async refreshToken => {
     if (!refreshToken) {
         throw createApiError({ type: 'unauthorized' });
     }
+
     const userTokenData = TokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await TokenService.findToken(refreshToken);
 

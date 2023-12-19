@@ -7,6 +7,7 @@ interface ContextProviderProps {
 
 export const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState({})
 
   return (
@@ -14,8 +15,10 @@ export const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
       value={{
         user,
         isAuth,
+        isLoading,
         setIsAuth,
         setUser,
+        setIsLoading,
       }}>
       {children}
     </AuthContext.Provider>

@@ -1,5 +1,6 @@
 const path = require('path');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const mode = process.env.NODE_ENV || 'production';
 
@@ -27,8 +28,6 @@ module.exports = {
             },
         ],
     },
-    externals: {
-        bufferutil: 'bufferutil',
-        'utf-8-validate': 'utf-8-validate',
-    },
+    externals: [nodeExternals()],
+    // in order to ignore all modules in node_modules folder
 };

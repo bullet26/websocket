@@ -6,7 +6,7 @@ export const Logout = () => {
   const { setIsAuth, setUser } = useAuthContext()
 
   const HandleClick = async () => {
-    localStorage.removeItemItem('token')
+    localStorage.removeItem('token')
     await logout()
     setIsAuth(false)
     setUser({})

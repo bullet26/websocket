@@ -28,25 +28,3 @@ export const authMiddlewareAccessToken = async (req, res, next) => {
         return next(createApiError({ type: 'unauthorized' }));
     }
 };
-
-export const authMiddlewareRefreshToken = async (req, res, next) => {
-    try {
-        const refreshToken = req.cookies.refreshToken;
-
-        if (!refreshToken) {
-            return next(createApiError({ type: 'unauthorized' }));
-        }
-
-        const userData = TokenService.validateRefreshToken(refreshToken);
-
-        if (!userData) {
-            return next(createApiError({ type: 'unauthorized' }));
-        }
-
-        req.user = userData;
-
-        next();
-    } catch (err) {
-        return next(createApiError({ type: 'unauthorized' }));
-    }
-};

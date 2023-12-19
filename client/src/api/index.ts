@@ -9,13 +9,15 @@ const $request = ky.create({
   headers: {
     Authorization: `Bearer ${accessToken}`,
   },
+  credentials: 'include',
   hooks: {
     afterResponse: [
       // eslint-disable-next-line consistent-return
       async (request, options, response) => {
         if (response.status === 401) {
           // unauthorized
-          const token = await ky(`${baseURL}/api/users/refresh`).text()
+          const res: AuthResponse = await ky(`${baseURL}/api/users/refresh`).json()
+          const token = res?.accessToken
           localStorage.setItem('token', token)
           request.headers.set('Authorization', `Bearer ${token}`)
           return ky(request)
@@ -99,6 +101,22 @@ export const getUsers = async (): Promise<IUser[]> => {
   try {
     const res: IUser[] = await $request.get('users/').json()
     return res
+  } catch (error: any) {
+    if (error?.name === 'HTTPError') {
+      const { message } = await error.response.json()
+      error.message = message
+      throw error
+    }
+    throw error
+  }
+}
+
+export const checkAuth = async (): Promise<AuthResponse> => {
+  try {
+    const response: AuthResponse = await ky
+      .get(`${baseURL}/api/users/refresh`, { credentials: 'include' })
+      .json()
+    return response
   } catch (error: any) {
     if (error?.name === 'HTTPError') {
       const { message } = await error.response.json()
