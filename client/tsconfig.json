@@ -27,7 +27,9 @@
       "store/*": ["store/*"],
       "types/*": ["types/*"],
       "UI/*": ["UI/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "websocket/*": ["websocket/*"],
+      "api/*": ["api/*"]
     }
   },
   "include": ["src", ".eslintrc.cjs", "vite.config.ts", "./setup-tests.ts"],

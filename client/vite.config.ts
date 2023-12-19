@@ -9,14 +9,16 @@ export default defineConfig({
     alias: {
       assets: '/src/assets/',
       components: '/src/components/',
+      store: '/src/store/',
       hooks: '/src/hooks/',
       routes: '/src/routes/',
       pages: '/src/pages/',
       theme: '/src/theme/',
-      apollo: '/src/apollo/',
       types: '/src/types/',
       UI: '/src/UI/',
       utils: '/src/utils/',
+      websocket: '/src/websocket/',
+      api: '/src/api/',
     },
   },
   css: {

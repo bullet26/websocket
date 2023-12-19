@@ -24,7 +24,7 @@ const update = async ({ id, updateData }) => {
 const registration = async user => {
     const existingUser = await UserDAL.findByOne({ email: user.email });
     if (existingUser) {
-        throw createApiError({ message: `User with ${user.email} already exists`, type: 'badRequest' });
+        throw createApiError({ message: `User with email: ${user.email} already exists`, type: 'badRequest' });
     }
 
     const hashPassword = await bcrypt.hash(user.password, 3);
@@ -42,18 +42,19 @@ const registration = async user => {
     };
 };
 
-const login = async ({ email, password }) => {
-    const user = await UserDAL.findByOne({ email });
+const login = async user => {
+    const userDB = await UserDAL.findByOne({ email: user.email });
 
-    if (!user) {
+    if (!userDB) {
         throw createApiError({ message: `User didn't find`, type: 'badRequest' });
     }
-    const isPasswordEqual = await bcrypt.compare(password, user.password);
+    const isPasswordEqual = await bcrypt.compare(user.password, userDB.password);
 
     if (!isPasswordEqual) {
         throw createApiError({ message: `Wrong password`, type: 'badRequest' });
     }
-    const { passwordR, ...userData } = user._doc;
+
+    const { password, ...userData } = userDB._doc;
     const tokens = TokenService.generateTokens(userData);
 
     await TokenService.saveToken({

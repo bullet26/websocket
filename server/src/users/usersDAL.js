@@ -15,8 +15,8 @@ const findByID = async ({ id }) => {
     return UsersModel.findById(id);
 };
 
-const findByOne = async ({ findOne }) => {
-    return UsersModel.findOne(findOne);
+const findByOne = async findOneObj => {
+    return UsersModel.findOne(findOneObj);
 };
 
 const update = async ({ id, updateData }) => {

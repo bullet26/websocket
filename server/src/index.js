@@ -12,7 +12,7 @@ dotenv.config();
 export const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: process.env.ClIENT_URL, credentials: true }));
 
 export const { getWss } = expressWs(app);
 
