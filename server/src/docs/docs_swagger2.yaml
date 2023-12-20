@@ -1,0 +1,200 @@
+---
+  info: 
+    description: "This service defines the main user`s functions"
+    title: "Main service"
+    version: "1.0.0"
+  host: "localhost:8080"
+  basePath: "/"
+  produces: 
+    - "application/json"
+    - "application/xml"
+  schemes: 
+    - "http"
+    - "https"
+  securityDefinitions: 
+    JWT: 
+      type: "apiKey"
+      in: "header"
+      name: "Authorization"
+      description: "bearer-jwt  (http, Bearer)"
+  externalDocs: 
+    description: "Link to external documentation"
+    url: "http://localhost:8080/api-docs"
+  swagger: "2.0"
+  paths: 
+    api/user/registration: 
+      post: 
+        parameters: 
+          - 
+            name: "request"
+            in: "body"
+            description: "Registration data"
+            required: true
+            schema: 
+              $ref: "#/definitions/RegistrationRequest"
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful registration"
+            schema: 
+              $ref: "#/definitions/AuthResponse"
+          400: 
+            description: "Bad request"
+            schema: 
+              $ref: "#/definitions/ApiError"
+          500: 
+            description: "Default error"
+            schema: 
+              $ref: "#/definitions/ApiError"
+    api/user/login: 
+      post: 
+        parameters: 
+          - 
+            name: "request"
+            in: "body"
+            description: "Login data"
+            required: true
+            schema: 
+              $ref: "#/definitions/LoginRequest"
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful login"
+            schema: 
+              $ref: "#/definitions/AuthResponse"
+          400: 
+            description: "Bad request"
+            schema: 
+              $ref: "#/definitions/ApiError"
+          500: 
+            description: "Default error"
+            schema: 
+              $ref: "#/definitions/ApiError"
+    api/user/logout: 
+      post: 
+        parameters: []
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful logout"
+          500: 
+            description: "Default error"
+            schema: 
+              $ref: "#/definitions/ApiError"
+    api/user/refresh: 
+      get: 
+        parameters: []
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful refresh"
+            schema: 
+              $ref: "#/definitions/AuthResponse"
+          401: 
+            description: "Unauthorized"
+            schema: 
+              $ref: "#/definitions/ApiError"
+          500: 
+            description: "Default error"
+            schema: 
+              $ref: "#/definitions/ApiError"
+  definitions: 
+    UserDto: 
+      required: 
+        - "name"
+        - "surname"
+        - "email"
+        - "password"
+      properties: 
+        name: 
+          type: "string"
+          description: ""
+        surname: 
+          type: "string"
+          description: ""
+        email: 
+          type: "string"
+          description: ""
+        password: 
+          type: "string"
+          description: ""
+        role: 
+          type: "string"
+          description: ""
+        status: 
+          type: "string"
+          description: ""
+    RefreshTokenRequest: 
+      required: 
+        - "refreshToken"
+      properties: 
+        refreshToken: 
+          type: "string"
+          description: "Refresh token obtained from cookies"
+    RegistrationRequest: 
+      required: 
+        - "name"
+        - "surname"
+        - "email"
+        - "password"
+      properties: 
+        name: 
+          type: "string"
+          description: ""
+        surname: 
+          type: "string"
+          description: ""
+        email: 
+          type: "string"
+          description: ""
+        password: 
+          type: "string"
+          description: ""
+        role: 
+          type: "string"
+          description: ""
+    LoginRequest: 
+      required: 
+        - "email"
+        - "password"
+      properties: 
+        email: 
+          type: "string"
+          description: ""
+        password: 
+          type: "string"
+          description: ""
+    AuthResponse: 
+      required: 
+        - "accessToken"
+        - "refreshToken"
+        - "user"
+      properties: 
+        accessToken: 
+          type: "string"
+          description: ""
+        refreshToken: 
+          type: "string"
+          description: ""
+        user: 
+          $ref: "#/definitions/UserDto"
+    ApiError: 
+      required: []
+      properties: 
+        message: 
+          type: "string"
+          description: ""
+  responses: {}
+  parameters: {}
+  tags: 
+    - 
+      name: "User"
+      description: ""

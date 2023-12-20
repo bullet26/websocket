@@ -1,0 +1,242 @@
+---
+  openapi: "3.0.0"
+  info: 
+    description: "This service defines the main user`s functions"
+    title: "Main service"
+    version: "1.0.0"
+  externalDocs: 
+    description: "Link to external documentation"
+    url: "http://localhost:8080/api-docs"
+  paths: 
+    api/user/registration: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/RegistrationRequest"
+          description: "Registration data"
+          required: true
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful registration"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+          400: 
+            description: "Bad request"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+          500: 
+            description: "Default error"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    api/user/login: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/LoginRequest"
+          description: "Login data"
+          required: true
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful login"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+          400: 
+            description: "Bad request"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+          500: 
+            description: "Default error"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    api/user/logout: 
+      post: 
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful logout"
+          500: 
+            description: "Default error"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    api/user/refresh: 
+      get: 
+        description: ""
+        tags: 
+          - "User"
+        responses: 
+          200: 
+            description: "Successful refresh"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthResponse"
+          401: 
+            description: "Unauthorized"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+          500: 
+            description: "Default error"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+  tags: 
+    - 
+      name: "User"
+      description: ""
+  servers: 
+    - 
+      url: "http://localhost:8080"
+    - 
+      url: "https://localhost:8080"
+  components: 
+    securitySchemes: 
+      JWT: 
+        type: "apiKey"
+        in: "header"
+        name: "Authorization"
+        description: "bearer-jwt  (http, Bearer)"
+    schemas: 
+      UserDto: 
+        required: 
+          - "name"
+          - "surname"
+          - "email"
+          - "password"
+        properties: 
+          name: 
+            type: "string"
+            description: ""
+          surname: 
+            type: "string"
+            description: ""
+          email: 
+            type: "string"
+            description: ""
+          password: 
+            type: "string"
+            description: ""
+          role: 
+            type: "string"
+            description: ""
+          status: 
+            type: "string"
+            description: ""
+      RefreshTokenRequest: 
+        required: 
+          - "refreshToken"
+        properties: 
+          refreshToken: 
+            type: "string"
+            description: "Refresh token obtained from cookies"
+      RegistrationRequest: 
+        required: 
+          - "name"
+          - "surname"
+          - "email"
+          - "password"
+        properties: 
+          name: 
+            type: "string"
+            description: ""
+          surname: 
+            type: "string"
+            description: ""
+          email: 
+            type: "string"
+            description: ""
+          password: 
+            type: "string"
+            description: ""
+          role: 
+            type: "string"
+            description: ""
+      LoginRequest: 
+        required: 
+          - "email"
+          - "password"
+        properties: 
+          email: 
+            type: "string"
+            description: ""
+          password: 
+            type: "string"
+            description: ""
+      AuthResponse: 
+        required: 
+          - "accessToken"
+          - "refreshToken"
+          - "user"
+        properties: 
+          accessToken: 
+            type: "string"
+            description: ""
+          refreshToken: 
+            type: "string"
+            description: ""
+          user: 
+            $ref: "#/components/schemas/UserDto"
+      ApiError: 
+        required: []
+        properties: 
+          message: 
+            type: "string"
+            description: ""
