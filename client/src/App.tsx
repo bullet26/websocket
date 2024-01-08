@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import { Button } from 'antd'
 import { useAuthContext } from 'store'
 import { checkAuth } from 'api'
-import { WS, Login, Registration, Logout } from 'components'
+import { WS, Login, Registration, Logout, MyEditor } from 'components'
 
 export const App: FC = () => {
   const [showLogin, setShowLoginStatus] = useState(false)
@@ -64,6 +64,7 @@ export const App: FC = () => {
     <>
       <Logout />
       <WS />
+      <MyEditor />
     </>
   )
 }

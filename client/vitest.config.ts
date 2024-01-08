@@ -5,6 +5,17 @@ export default defineConfig({
   // @ts-ignore
   plugins: [svgr()],
   base: './',
+  build: {
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name].js',
+        assetFileNames: '[name].[ext]',
+      },
+    },
+  },
   resolve: {
     alias: {
       assets: '/src/assets/',

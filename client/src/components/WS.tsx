@@ -2,6 +2,7 @@ import { FC, useState, useRef, useEffect } from 'react'
 import { Radio, Button, Input } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import { socketRequest, socketSentMsg } from 'websocket'
+import { CardFlip } from 'components'
 
 export const WS: FC = () => {
   const socket = useRef<WebSocket | null>(null)
@@ -49,6 +50,7 @@ export const WS: FC = () => {
         onChange={(e) => setInputValue(e.target.value)}
       />
       <Button onClick={onClick}>Submit text</Button>
+      <CardFlip />
     </>
   )
 }
