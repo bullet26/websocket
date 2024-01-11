@@ -12,7 +12,7 @@ import swaggerUi from 'swagger-ui-express';
 // import ExpressSwaggerGenerator from 'express-swagger-generator';
 import { userDefaultPath, usersRouter } from './users/usersRouter.js';
 import { errorMiddleware } from './middlewares/error.js';
-import { broadcastMessage } from './utils/broadcast.js';
+//import { broadcastMessage } from './utils/broadcast.js';
 
 dotenv.config();
 
@@ -36,21 +36,23 @@ app.use(
     })
 );
 
-export const { getWss } = expressWs(app);
+//WEBSOCKET
 
-app.ws('/', (ws, req) => {
-    ws.on('message', message => {
-        message = JSON.parse(message);
-        switch (message.event) {
-            case 'message':
-                broadcastMessage(message);
-                break;
-            case 'connection':
-                broadcastMessage(message);
-                break;
-        }
-    });
-});
+// export const { getWss } = expressWs(app);
+
+// app.ws('/', (ws, req) => {
+//     ws.on('message', message => {
+//         message = JSON.parse(message);
+//         switch (message.event) {
+//             case 'message':
+//                 broadcastMessage(message);
+//                 break;
+//             case 'connection':
+//                 broadcastMessage(message);
+//                 break;
+//         }
+//     });
+// });
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
