@@ -32,6 +32,9 @@ export default defineConfig({
       api: '/src/api/',
     },
   },
+  // optimizeDeps: {
+  //   exclude: ['draft-js-export-html', 'draftjs-to-html'],
+  // },
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
